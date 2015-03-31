@@ -56,13 +56,15 @@
             </div>
             <div class="column">
                 <div class="ui two column grid">
-                    <div class="column nopadding">
-                        <div class="input-field" ng-controller="categoryController">
-                            <select name="search" ng-repeat="row in categories">
-                                <option value="" disabled> -- Pilih Kategori -- </option>
-                                <option value="{{row.category_id}}">{{row.category_name}}</option>
+                    <div class="column nopadding" ng-controller="testController">
+                        <!--<div class="input-field">-->
+                            <select ng-model="categoryItem" ng-options="item.category_name for item in categories">
+                                <option value="" disabled selected="true"> -- Pilih Kategori -- </option>
+                                <!--categoryItem.name}}-->
+                                <option value="">Tes 1</option>
+                                <option value="">Tes 2</option>
                             </select>
-                        </div>
+                        <!--</div>-->
                     </div>
                     <div class="column nopadding">&nbsp;</div>
                 </div>
