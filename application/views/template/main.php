@@ -48,16 +48,16 @@
             <a href="">
                 <img src="<?php echo assets_url;?>img/logo.png" class="logo" alt="Jelajahi Indonesiamu" title="Jelajahi Indonesiamu" />
             </a>
-            <a href="category" class="item waves-effect waves-block waves-light">
+            <a href="<?php echo base_url().'home/category';?>" class="item waves-effect waves-block waves-light">
                 <i class="align right icon"></i> <span>Kategori</span>
             </a>
-            <a href="product" class="item waves-effect waves-block waves-light">
+            <a href="<?php echo base_url().'home/product';?>" class="item waves-effect waves-block waves-light">
                 <i class="star icon"></i> <span>Produk</span>
             </a>
-            <a href="shop" class="item waves-effect waves-block waves-light">
+            <a href="<?php echo base_url().'home/shop';?>" class="item waves-effect waves-block waves-light">
                 <i class="search icon"></i> <span>Daftar Toko</span>
             </a>
-            <a href="blog" class="item waves-effect waves-block waves-light">
+            <a href="<?php echo base_url().'home/blog';?>" class="item waves-effect waves-block waves-light">
                 <i class="book icon"></i> <span>Blog</span>
             </a>
             <a class="item waves-effect waves-block waves-light">
@@ -192,3 +192,22 @@
 
 </body>
 </html>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // untuk dropdown kurir dan jenis layanan
+    $("#courier").change(function() {
+        var courier_id = $(this).val();        
+
+        $.ajax ({
+            type: "POST",
+            url: "<?php echo base_url();?>ajax/get_courier_services",
+            data: "courier_id="+ courier_id,
+            cache: false,
+            success: function(html) {
+                $("#services").html(html);                            
+            }            
+        });
+    });
+});
+</script>

@@ -12,7 +12,7 @@
                     </div>
                     <div class="eight wide column aligncenter">
                         <a class="waves-effect waves-light">
-                            <i class="flag icon"></i> &nbsp; Nama Toko
+                            <i class="flag icon"></i> &nbsp; <?php echo $product['shop_name'];?>
                         </a>
                     </div>
                     <div id="share-detail" class="four wide column alignright">
@@ -60,25 +60,23 @@
             <div class="column">
                 <div id="product-image" class="royalSlider rsDefault">
                     <?php
-                        $i = 1;
-                        while($i <= 6){
+                    if($p_image != FALSE) :
+                    foreach($p_image as $row) :
                     ?>
-                    <a class="rsImg bugaga" data-rsw="400" data-rsh="500"  data-rsBigImg="<?php echo base_url(); ?><?php echo assets_url;?>img/product/<?php echo $i; ?>.jpg" href="<?php echo assets_url;?>img/product/<?php echo $i; ?>.jpg">
-                        <img width="96" height="72" class="rsTmb" src="<?php echo assets_url;?>img/product/thumb/<?php echo $i; ?>.jpg" />
+                    <a class="rsImg bugaga" data-rsw="400" data-rsh="500"  data-rsBigImg="<?php echo public_url;?>product_img/<?php echo $row['image']?>" href="<?php echo public_url;?>product_img/<?php echo $row['image']?>">
+                        <img width="96" height="72" class="rsTmb" src="<?php echo public_url;?>product_img/thumb/<?php echo $row['image']?>" />
                     </a>
-                    <?php
-                        $i++; }
-                    ?>
+                    <?php endforeach; endif;?>
                 </div>
             </div>
             <div class="column alignjustify">
-                <h5>Nama Produk</h5>
+                <h5><?php echo ucwords($product['product_name']);?></h5>
                 <p>
                     <i class="mdi-action-favorite pink-color"></i> 120 &nbsp;
                     <i class="mdi-action-shopping-cart blue-color"></i> 30
                 </p>
-                <p class="price">Rp 100.000,-</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p class="price"><?php echo indonesia_currency($product['price']);?></p>
+                <p><?php echo ucfirst($product['description']);?>.</p>
                 <div class="ui horizontal divider">
                     Isi Form untuk Order Produk
                 </div>
@@ -88,18 +86,19 @@
                             <input id="quantity" type="text" class="nomargin" placeholder="Quantity" style="height: 30px;" />
                         </div>
                         <div class="column input-field nomargin">
-                            <select name="pengiriman">
+                            <select name="pengiriman" id="courier">
                                 <option value="" disabled selected>Pengiriman</option>
-                                <option value="jne">JNE</option>
-                                <option value="tiki">TIKI</option>
-                                <option value="pos">POS</option>
+                                <?php 
+                                if($courier!=FALSE) :
+                                foreach($courier as $row) : 
+                                ?>
+                                <option value="<?php echo $row['courier_id'];?>"> <?php echo $row['courier_name'];?> </option>
+                                <?php endforeach; endif;?>                                
                             </select>
                         </div>
                         <div class="column input-field nomargin">
-                            <select name="quantity">
-                                <option value="" disabled selected>Paket Pengiriman</option>
-                                <option value="regular">Regular</option>
-                                <option value="express">Express</option>
+                            <select name="layanan" id="test">
+                                <option value="" disabled selected>Paket Pengiriman</option>                                                             
                             </select>
                         </div>
                         <div class="column input-field nomargin">
@@ -136,11 +135,20 @@
                     <div id="review-produk" class="col s12 nopadding-side">
                         <div class="ui grid table nomargin">
                             <div class="five wide column table-cell alignright result-review">
-                                <h1 class="nomargin">3,0</h1>
+                                <h1 class="nomargin"><?php if($total_rate != FALSE) echo $total_rate['rate']; else echo '0';?></h1>
                                 <div class="ui large star rating rating-disabled" data-rating="3" data-max-rating="5"></div>
-                                <h6>200 <i class="user icon"></i></h6>
+                                <h6><?php if($total_rate != FALSE) echo $total_rate['rate']; else echo '0';?> <i class="user icon"></i></h6>
                             </div>
                             <div class="eleven wide column table-cell">
+                                <?php
+                                $total_rate = $rate_5['rate'] + $rate_4['rate'] + $rate_3['rate'] + $rate_2['rate'] + $rate_1['rate'];
+                                if($total_rate==0) $total_rate=1;
+                                $width_5 = ( $rate_5['rate'] / $total_rate ) * 100;
+                                $width_4 = ( $rate_4['rate'] / $total_rate ) * 100;
+                                $width_3 = ( $rate_3['rate'] / $total_rate ) * 100;
+                                $width_2 = ( $rate_2['rate'] / $total_rate ) * 100;
+                                $width_1 = ( $rate_1['rate'] / $total_rate ) * 100;
+                                ?>
                                 <div class="ui grid two column count-review">
                                     <div class="column alignright">
                                         <i class="star icon"></i>
@@ -150,7 +158,7 @@
                                         <i class="star icon"></i>
                                     </div>
                                     <div class="column">
-                                        <span class="ui light-green accent-4 progress" style="width: 20%"></span> 35
+                                        <span class="ui light-green accent-4 progress" style="width: <?php echo $width_5;?>%"></span> <?php echo $rate_5['rate'];?>
                                     </div>
                                     <div class="column alignright">
                                         <i class="star icon"></i>
@@ -159,7 +167,7 @@
                                         <i class="star icon"></i>
                                     </div>
                                     <div class="column">
-                                        <span class="ui lime accent-3 progress" style="width: 10%"></span> 20
+                                        <span class="ui lime accent-3 progress" style="width: <?php echo $width_4;?>%"></span> <?php echo $rate_4['rate'];?>
                                     </div>
                                     <div class="column alignright">
                                         <i class="star icon"></i>
@@ -167,60 +175,49 @@
                                         <i class="star icon"></i>
                                     </div>
                                     <div class="column">
-                                        <span class="ui lime accent-2 progress" style="width: 60%"></span> 110
+                                        <span class="ui lime accent-2 progress" style="width: <?php echo $width_3;?>%"></span> <?php echo $rate_3['rate'];?>
                                     </div>
                                     <div class="column alignright">
                                         <i class="star icon"></i>
                                         <i class="star icon"></i>
                                     </div>
                                     <div class="column">
-                                        <span class="ui orange progress" style="width: 15%"></span> 25
+                                        <span class="ui orange progress" style="width: <?php echo $width_2;?>%"></span> <?php echo $rate_2['rate'];?>
                                     </div>
                                     <div class="column alignright">
                                         <i class="star icon"></i>
                                     </div>
                                     <div class="column">
-                                        <span class="ui orange progress" style="width: 5%"></span> 10
+                                        <span class="ui orange progress" style="width: <?php echo $width_1;?>%"></span> <?php echo $rate_1['rate'];?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="ui comments">
                             <h3 class="ui dividing header">Review dari Pembeli</h3>
+                            <?php
+                            if($review != FALSE) :
+                            foreach($review as $row) :
+                            ?>                           
                             <div class="comment">
                                 <a class="avatar">
-                                    <img src="<?php echo assets_url;?>img/avatar/matt.jpg">
+                                    <img src="<?php echo public_url.'avatar/'.$row['avatar'];?>">
                                 </a>
+
                                 <div class="content">
-                                    <a class="author">Matt</a>
+                                    <a class="author"><?php echo $row['name'];?></a>
                                     <div class="metadata">
-                                        <span class="date">Hari ini pukul 13.00</span>
+                                        <span class="date"><?php echo $row['comment_date'];?></span>
                                     </div>
                                     <div class="text">
-                                        Barang udah diterima, kondisi bagus..thx
+                                        <?php echo $row['comment'];?>
                                     </div>
                                     <div class="actions">
-                                        <div class="ui star rating rating-disabled" data-rating="4" data-max-rating="5"></div>
+                                        <div class="ui star rating rating-disabled" data-rating="<?php echo $row['rate'];?>" data-max-rating="5"></div>
                                     </div>
-                                </div>
+                                </div>                            
                             </div>
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="<?php echo assets_url;?>img/avatar/elliot.jpg">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Elliot</a>
-                                    <div class="metadata">
-                                        <span class="date">Kemarin pukul 10.00</span>
-                                    </div>
-                                    <div class="text">
-                                        Kondisi barang masih bagus tapi pengiriman agak lambat
-                                    </div>
-                                    <div class="actions">
-                                        <div class="ui star rating rating-disabled" data-rating="3" data-max-rating="5"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php endforeach; endif; ?>
                             <p>&nbsp;</p>
                             <button class="btn waves-effect waves-light">Load more review..</button>
                         </div>
@@ -228,50 +225,45 @@
                     <div id="diskusi-produk" class="col s12 nopadding-side">
                         <div class="ui comments">
                             <h3 class="ui dividing header">Diskusi tentang Produk ini</h3>
+                            <?php
+                            if($discussion != FALSE) :
+                            foreach($discussion as $row) :
+                            
+                            if($row['parent_id'] == 0) :
+                            ?>
                             <div class="comment">
                                 <a class="avatar">
-                                    <img src="<?php echo assets_url;?>img/avatar/jenny.jpg">
+                                    <img src="<?php echo public_url.'avatar/'.$row['avatar'];?>">
                                 </a>
                                 <div class="content">
-                                    <a class="author">Jenny</a>
+                                    <a class="author"><?php echo $row['name'];?></a>
                                     <div class="metadata">
-                                        <span class="date">Hari ini pukul 10.00</span>
+                                        <span class="date"><?php echo $row['comment_date'];?></span>
                                     </div>
                                     <div class="text">
-                                        Barangnya bagus ga sih? gw mau beli tapi masih ragu :(
+                                        <?php echo $row['comment'];?>
                                     </div>
                                 </div>
-                                <div class="comments">
-                                    <div class="comment">
-                                        <a class="avatar">
-                                            <img src="<?php echo assets_url;?>img/avatar/joe.jpg">
-                                        </a>
-                                        <div class="content">
-                                            <a class="author">Joe <i class="mdi-action-store ui-tooltip" data-content="Penjual"></i></a>
-                                            <div class="metadata">
-                                                <span class="date">Hari ini pukul 10.30</span>
-                                            </div>
-                                            <div class="text">
-                                                Tentu bagus donk gan, pokoknya dijamin kualitas No. 1 :D
-                                            </div>
+                            </div>
+                            <?php else: ?>
+                            <div class="comments" style="margin-left: 50px;">
+                                <div class="comment">
+                                    <a class="avatar">
+                                        <img src="<?php echo public_url.'avatar/'.$row['avatar'];?>">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author"><?php echo $row['name'];?></a>
+                                        <div class="metadata">
+                                            <span class="date"><?php echo $row['comment_date'];?></span>
+                                        </div>
+                                        <div class="text">
+                                            <?php echo $row['comment'];?>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="<?php echo assets_url;?>img/avatar/elliot.jpg">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Elliot</a>
-                                    <div class="metadata">
-                                        <span class="date">Kemarin pukul 10.00</span>
-                                    </div>
-                                    <div class="text">
-                                        Bagus kok kualitas barangnya cuma ya itu, gw pesen agak lama sampenya.. :D
-                                    </div>
-                                </div>
-                            </div>
+                            </div>      
+                            <?php endif;?>                           
+                            <?php endforeach; endif; ?>                       
                             <p>&nbsp;</p>
                             <button class="btn waves-effect waves-light">Gabung Diskusi</button>
                         </div>
@@ -282,68 +274,45 @@
                 <h5>Produk Lainnya</h5>
                 <div id="other-product">
                     <div class="ui grid two column nomargin">
+                        <?php
+                        if($related != FALSE) :
+                        $x=0;
+                        foreach($related as $row) :
+                        if($x==2) { break; }// keluar dr perulangan jika 2 item sudah ditampilkan
+                        ?>                    
                         <div class="column">
                             <div class="card">
                                 <div class="card-image waves-effect waves-block waves-light">
-                                    <a href="detail-product">
-                                        <img src="<?php echo assets_url;?>img/product/Maichi2.jpg" class="activator" />
+                                    <a href="<?php echo base_url().'home/product_detail/'.$row['product_id'];?>">
+                                        <img src="<?php echo public_url.'product_img/'.$row['product_img'];?>" class="activator" />
                                     </a>
-                                    <a href="detail-store" class="card-store" title="Toko Maichi">
+                                    <a href="<?php echo base_url().'store_detail/'.$row['shop_id'];?>" class="card-store" title="Toko Maichi">
                                         <img src="http://placehold.it/64x64&text=Logo" class="store-logo" />
                                     </a>
                                 </div>
                                 <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4"><a href="detail-product">Kripik Maichi</a> <i class="mdi-navigation-more-vert right"></i></span>
+                                    <span class="card-title activator grey-text text-darken-4"><a href="detail-product"><?php echo $row['product_name'];?></a> <i class="mdi-navigation-more-vert right"></i></span>
                                                     
                                     <p class="card-count">
                                         <span class="fav-count"><i class="mdi-action-favorite"></i> <span><?php echo rand(10, 100) ?></span></span>
                                         <span class="sell-count"><i class="mdi-action-shopping-cart"></i> <span><?php echo rand(10, 100) ?></span></span>
                                     </p>
-                                    <p class="card-price">Rp 100.000,-</p>
+                                    <p class="card-price"><?php echo indonesia_currency($row['price']);?></p>
                                 </div>
                                 <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">Kripik Maichi <i class="mdi-navigation-close right"></i></span>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <span class="card-title grey-text text-darken-4"><?php echo $row['product_name'];?> <i class="mdi-navigation-close right"></i></span>
+                                    <p><?php echo $row['description'];?></p>
                                 </div>
                                 <div class="card-action">                
-                                    <button class="btn waves-effect waves-light" onclick="window.location.href='<?php echo base_url(); ?>detail-product'">
+                                    <button class="btn waves-effect waves-light" onclick="window.location.href='<?php echo base_url().'home/product_detail/'.$row['product_id'];?>'">
                                         ORDER &nbsp; <i class="mdi-action-shopping-cart"></i>
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="column">
-                            <div class="card">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                    <a href="detail-product">
-                                        <img src="<?php echo assets_url;?>img/product/Dress.jpg" class="activator" />
-                                    </a>
-                                    <a href="detail-store" class="card-store" title="Toko Maichi">
-                                        <img src="http://placehold.it/64x64&text=Logo" class="store-logo" />
-                                    </a>
-                                </div>
-                                <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4"><a href="detail-product">Dress Girls</a> <i class="mdi-navigation-more-vert right"></i></span>
-                                                    
-                                    <p class="card-count">
-                                        <span class="fav-count"><i class="mdi-action-favorite"></i> <span><?php echo rand(10, 100) ?></span></span>
-                                        <span class="sell-count"><i class="mdi-action-shopping-cart"></i> <span><?php echo rand(10, 100) ?></span></span>
-                                    </p>
-                                    <p class="card-price">Rp 100.000,-</p>
-                                </div>
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">Dress Girls <i class="mdi-navigation-close right"></i></span>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                </div>
-                                <div class="card-action">                
-                                    <button class="btn waves-effect waves-light" onclick="window.location.href='<?php echo base_url(); ?>detail-product'">
-                                        ORDER &nbsp; <i class="mdi-action-shopping-cart"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        </div> 
+                        <?php $x++; endforeach; endif;?>                       
                     </div>
-                </div>
+                </div>                
             </div>
         </div>
     </div>
@@ -385,6 +354,6 @@
                 firstMargin: true,
                 paddingBottom: 4
             },
-        });
+        });       
     });
 </script>

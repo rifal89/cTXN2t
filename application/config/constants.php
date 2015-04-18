@@ -37,8 +37,8 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 /* konstanta bikinan sendiri */
-define('assets_url', 'http://'.$_SERVER['SERVER_NAME'].'/ioka/assets/');
-define('public_url', 'http://'.$_SERVER['SERVER_NAME'].'/ioka/public/');
+define('assets_url', 'http://'.$_SERVER['SERVER_NAME'].'/cTXN2t/assets/');
+define('public_url', 'http://'.$_SERVER['SERVER_NAME'].'/cTXN2t/public/');
 define('site_title', 'IOKA - Indonesia Milik Kita');
 
 /* End of file constants.php */

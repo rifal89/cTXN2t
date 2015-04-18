@@ -15,24 +15,44 @@ class Home extends CI_Controller {
 		$this->load->view('template/main', $data);
 	}
 
-	function category() {
-		$data['category']	= $this->select_mod->get_category();
-		$data['content'] 	= $this->load->view('content/category', $data, TRUE);
+	function category() {	
+		$data['content'] 	= $this->load->view('content/category', '', TRUE);
 		$this->load->view('template/main', $data);
 	}
 
 	function category_detail() {
-		$data['content'] = $this->load->view('content/category_detail', '', TRUE);
+		$category_id = $this->uri->segment(3);
+
+		$data['category']	= $this->select_mod->get_category();
+		$data['product']	= $this->select_mod->get_product($category_id);
+		$data['content'] 	= $this->load->view('content/category_detail', $data, TRUE);
 		$this->load->view('template/main', $data);
 	}
 
 	function product() {
-		$data['content'] = $this->load->view('content/product', '', TRUE);
+		$data['product']	= $this->select_mod->get_product();
+		$data['content'] 	= $this->load->view('content/product', $data, TRUE);
 		$this->load->view('template/main', $data);
 	}
 
 	function product_detail() {
-		$data['content'] = $this->load->view('content/product_detail', '', TRUE);
+		$product_id = $this->uri->segment(3);
+
+		$data['product']	= $this->select_mod->get_product('', $product_id);
+		$data['review']		= $this->select_mod->get_product_review($product_id);
+		$data['total_rate'] = $this->select_mod->get_product_rate_total($product_id);
+		$data['discussion'] = $this->select_mod->get_product_discussion($product_id);
+		$data['related']	= $this->select_mod->get_product_related($product_id);
+		$data['p_image']	= $this->select_mod->get_product_image($product_id);
+		$data['courier']	= $this->select_mod->get_shop_courier($product_id);
+
+		$data['rate_5']		= $this->select_mod->get_rate_5_star($product_id);
+		$data['rate_4']		= $this->select_mod->get_rate_4_star($product_id);
+		$data['rate_3']		= $this->select_mod->get_rate_3_star($product_id);
+		$data['rate_2']		= $this->select_mod->get_rate_2_star($product_id);
+		$data['rate_1']		= $this->select_mod->get_rate_1_star($product_id);
+
+		$data['content'] 	= $this->load->view('content/product_detail', $data, TRUE);
 		$this->load->view('template/main', $data);
 	}
 
