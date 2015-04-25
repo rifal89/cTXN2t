@@ -96,8 +96,8 @@
                                 <?php endforeach; endif;?>                                
                             </select>
                         </div>
-                        <div class="column input-field nomargin">
-                            <select name="layanan" id="test">
+                        <div id="package_courier" class="column input-field nomargin">
+                            <select name="layanan">
                                 <option value="" disabled selected>Paket Pengiriman</option>                                                             
                             </select>
                         </div>
@@ -354,6 +354,21 @@
                 firstMargin: true,
                 paddingBottom: 4
             },
-        });       
+        });
+
+        $("#courier").change(function() {
+            var courier_id = $(this).val();        
+
+            $.ajax ({
+                type: "POST",
+                url: "<?php echo base_url();?>ajax/get_courier_services",
+                data: "courier_id="+ courier_id,
+                cache: false,
+                success: function(html) {
+                    $("#package_courier").html(html);   
+                    $('select').not('.disabled').material_select();                         
+                }            
+            });
+        });
     });
 </script>

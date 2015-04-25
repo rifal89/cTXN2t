@@ -47,10 +47,11 @@ class Ajax extends CI_Controller {
 		$courier_id = $this->input->post('courier_id');
 		$data 		= $this->select_mod->get_courier_services($courier_id);
 
-		echo '<option value="">-- Paket Pengiriman --</option>';
+		echo '<select name="layanan"><option value="">-- Paket Pengiriman --</option>';
 		foreach($data as $row) :
 			echo '<option value="'.$row['id'].'">'.$row['service_name'].'</option>';
 		endforeach;		
+		echo '</select>';
 	}
 
 }

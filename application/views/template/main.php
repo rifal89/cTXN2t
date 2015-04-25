@@ -192,22 +192,3 @@
 
 </body>
 </html>
-
-<script type="text/javascript">
-$(document).ready(function() {
-    // untuk dropdown kurir dan jenis layanan
-    $("#courier").change(function() {
-        var courier_id = $(this).val();        
-
-        $.ajax ({
-            type: "POST",
-            url: "<?php echo base_url();?>ajax/get_courier_services",
-            data: "courier_id="+ courier_id,
-            cache: false,
-            success: function(html) {
-                $("#services").html(html);                            
-            }            
-        });
-    });
-});
-</script>
