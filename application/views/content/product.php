@@ -31,7 +31,7 @@
             </button>
         </div>
     </div>
-<?php endforeach; endif; ?>
+    <?php endforeach; endif; ?>
 </div>
 
 <div id="page_nav">

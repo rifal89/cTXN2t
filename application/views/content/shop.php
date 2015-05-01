@@ -52,36 +52,15 @@
     <div id="body-content" class="full column">
         <div id="list-store" class="ui grid nomargin">
             <?php
-                $i = 1;
-                while($i <= 4){
-            ?>
+            if($shop != FALSE) :
+            foreach($shop as $row) : ?>
             <div class="four wide column">
-                <a href="<?php echo base_url().'home/shop_detail';?>">
-                    <img class="ui medium circular image" src="<?php echo assets_url;?>img/store/store1.jpg" />
-                    <p class="store-name">Nama Toko</p>
+                <a href="<?php echo base_url().'home/shop_detail/'.$row['shop_id'];?>">
+                    <img class="ui medium circular image" src="<?php echo public_url.'shop_img/'.$row['shop_img'];?>" />
+                    <p class="store-name"><?php echo ucwords(str_replace("_", " ", $row['shop_name']));?></p>
                 </a>
             </div>
-            <div class="four wide column">
-                <a href="<?php echo base_url().'home/shop_detail';?>">
-                    <img class="ui medium circular image" src="<?php echo assets_url;?>img/store/store2.jpg" />
-                    <p class="store-name">Nama Toko</p>
-                </a>
-            </div>
-            <div class="four wide column">
-                <a href="<?php echo base_url().'home/shop_detail';?>">
-                    <img class="ui medium circular image" src="<?php echo assets_url;?>img/store/store3.jpg" />
-                    <p class="store-name">Nama Toko</p>
-                </a>
-            </div>
-            <div class="four wide column">
-                <a href="<?php echo base_url().'home/shop_detail';?>">
-                    <img class="ui medium circular image" src="<?php echo assets_url;?>img/store/store4.jpg" />
-                    <p class="store-name">Nama Toko</p>
-                </a>
-            </div>
-            <?php
-                $i++; }
-            ?>
+            <?php endforeach; endif;?>
         </div>
     </div>
 </div>

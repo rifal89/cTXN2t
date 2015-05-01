@@ -23,13 +23,18 @@
     <div id="body-content" class="full column" ng-controller="categoryController">
         <div id="list-category" class="ui grid nomargin">
 
-            <div class="two wide column item" ng-repeat="row in categories">
-                <a href="<?php echo base_url().'home/category_detail/';?>{{row.category_id}}">
-                    <img class="ui medium image" src="<?php echo public_url.'category_img/';?>{{row.category_img}}" />
-                    <p class="category-name"> {{row.category_name}}</p>
+            <?php
+            if($category != FALSE) :
+            foreach($category as $row) : 
+            ?>
+            <div class="two wide column item" >
+                <a href="<?php echo base_url().'home/category_detail/';?><?php echo $row['category_id'];?>">
+                    <img class="ui medium image" src="<?php echo public_url.'category_img/';?><?php echo $row['category_img'];?>" />
+                    <p class="category-name"> <?php echo $row['category_name'];?> </p>
                 </a>
             </div>            
-
+            <?php endforeach; endif;?>
+            
         </div>
     </div>
 </div>

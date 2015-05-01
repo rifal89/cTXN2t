@@ -72,8 +72,8 @@
             <div class="column alignjustify">
                 <h5><?php echo ucwords($product['product_name']);?></h5>
                 <p>
-                    <i class="mdi-action-favorite pink-color"></i> 120 &nbsp;
-                    <i class="mdi-action-shopping-cart blue-color"></i> 30
+                    <i class="mdi-action-favorite pink-color"></i> <?php echo $like['rate'];?> &nbsp;
+                    <i class="mdi-action-shopping-cart blue-color"></i> <?php echo $sold['sold'];?>
                 </p>
                 <p class="price"><?php echo indonesia_currency($product['price']);?></p>
                 <p><?php echo ucfirst($product['description']);?>.</p>
@@ -96,7 +96,7 @@
                                 <?php endforeach; endif;?>                                
                             </select>
                         </div>
-                        <div id="package_courier" class="column input-field nomargin">
+                        <div class="column input-field nomargin" id="package_courier">
                             <select name="layanan">
                                 <option value="" disabled selected>Paket Pengiriman</option>                                                             
                             </select>
@@ -354,7 +354,7 @@
                 firstMargin: true,
                 paddingBottom: 4
             },
-        });
+        }); 
 
         $("#courier").change(function() {
             var courier_id = $(this).val();        
@@ -369,6 +369,6 @@
                     $('select').not('.disabled').material_select();                         
                 }            
             });
-        });
+        });              
     });
 </script>

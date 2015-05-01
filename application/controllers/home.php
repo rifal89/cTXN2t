@@ -15,8 +15,9 @@ class Home extends CI_Controller {
 		$this->load->view('template/main', $data);
 	}
 
-	function category() {	
-		$data['content'] 	= $this->load->view('content/category', '', TRUE);
+	function category() {
+		$data['category']	= $this->select_mod->get_category();
+		$data['content'] 	= $this->load->view('content/category', $data, TRUE);
 		$this->load->view('template/main', $data);
 	}
 
@@ -51,19 +52,40 @@ class Home extends CI_Controller {
 		$data['rate_3']		= $this->select_mod->get_rate_3_star($product_id);
 		$data['rate_2']		= $this->select_mod->get_rate_2_star($product_id);
 		$data['rate_1']		= $this->select_mod->get_rate_1_star($product_id);
+		$data['like']		= $this->select_mod->get_product_like($product_id);
+		$data['sold']		= $this->select_mod->get_product_sold($product_id);
 
 		$data['content'] 	= $this->load->view('content/product_detail', $data, TRUE);
 		$this->load->view('template/main', $data);
 	}
 
 	function shop() {
-		$data['content'] = $this->load->view('content/shop', '', TRUE);
+		$data['shop']		= $this->select_mod->get_shop();
+		$data['content']	= $this->load->view('content/shop', $data, TRUE);
 		$this->load->view('template/main', $data);
 	}
 
 	function shop_detail() {
-		$data['content'] = $this->load->view('content/shop_detail', '', TRUE);
+		$shop_id 			= $this->uri->segment(3);		
+
+		$data['shop']		= $this->select_mod->get_shop_detail($shop_id);
+		$data['album']		= $this->select_mod->get_product_album($shop_id);
+		$data['rate']		= $this->select_mod->get_shop_rate($shop_id);		
+		$data['content'] 	= $this->load->view('content/shop_detail', $data, TRUE);
 		$this->load->view('template/main', $data);
+	}
+
+	function shop_album() {
+		$shop_id 			= $this->uri->segment(3);
+		$album_id 			= $this->uri->segment(4);
+
+		$data['shop']		= $this->select_mod->get_shop_detail($shop_id);
+		$data['album']		= $this->select_mod->get_product_album($shop_id);
+		$data['rate']		= $this->select_mod->get_shop_rate($shop_id);
+		$data['product']	= $this->select_mod->get_product_per_album($album_id);				
+		$data['count']		= $this->select_mod->get_total_product_per_album($album_id);
+		$data['content'] 	= $this->load->view('content/shop_album', $data, TRUE);
+		$this->load->view('template/main', $data);		
 	}
 
 	function checkout() {
@@ -78,7 +100,7 @@ class Home extends CI_Controller {
 
 	function mail() {
 		$data['content'] = $this->load->view('content/mail', '', TRUE);
-		$this->load->view('template/main', $data);		
+		$this->load->view('template/main', $data);	
 	}
 
 	function account() {
@@ -103,7 +125,8 @@ class Home extends CI_Controller {
 	}
 
 	function account_store_category() {
-		$this->load->view('content/account_store_category');
+		$data['content'] = $this->load->view('content/account_store_category', '', TRUE);
+		$this->load->view('template/main', $data);		
 	}
 
 	function account_store_product() {
@@ -111,7 +134,8 @@ class Home extends CI_Controller {
 	}
 
 	function account_store_category_detail() {
-		$this->load->view('content/account_store_category_detail');	
+		$data['content'] = $this->load->view('content/account_store_category_detail', '', TRUE);
+		$this->load->view('template/main', $data);
 	}	
 
 }

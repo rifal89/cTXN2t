@@ -1049,8 +1049,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 #ji #store #body-store .head-card {
 	padding: 10px 15px;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;
+	text-align: center;
+	letter-spacing: 1px;
 }
 #ji #store #body-store .card-content {
 	padding: 8px 11px;
@@ -1580,7 +1582,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	background: #2196F3;
 	display: inline-block;
 	vertical-align: middle;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	z-index: 2;
 

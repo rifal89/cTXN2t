@@ -78,15 +78,15 @@
             ?>
             <div class="card items-ui">
                 <div class="card-image">
-                    <a href="product_detail">
+                    <a href="<?php echo base_url().'home/product_detail/'.$row['product_id'];?>">
                         <img src="<?php echo public_url.'product_img/'.$row['product_img'];?>" class="activator" />
                     </a>
-                    <a href="detail-store" class="card-store" title="<?php echo $row['product_name'];?>">
+                    <a href="<?php echo base_url().'home/shop_detail/'.$row['shop_id'];?>" class="card-store" title="<?php echo $row['product_name'];?>">
                         <img src="http://placehold.it/64x64&text=Logo" class="store-logo" />
                     </a>
                 </div>
                 <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4"><a href="<?php echo base_url().'home/product_detail'.$row['product_id'];?>"><?php echo $row['product_name'];?></a> <i class="mdi-navigation-more-vert right"></i></span>
+                    <span class="card-title activator grey-text text-darken-4"><a href="<?php echo base_url().'home/product_detail/'.$row['product_id'];?>"><?php echo $row['product_name'];?></a> <i class="mdi-navigation-more-vert right"></i></span>
                                     
                     <p class="card-count">
                         <span class="fav-count"><i class="mdi-action-favorite"></i> <span><?php echo rand(10, 100) ?></span></span>
@@ -99,7 +99,7 @@
                     <p><?php echo $row['description'];?></p>
                 </div>
                 <div class="card-action">                
-                    <button class="btn waves-effect waves-light" onclick="window.location.href='<?php echo base_url().'home/product_detail'.$row['product_id'];?>'">
+                    <button class="btn waves-effect waves-light" onclick="window.location.href='<?php echo base_url().'home/product_detail/'.$row['product_id'];?>'">
                         ORDER &nbsp; <i class="mdi-action-shopping-cart"></i>
                     </button>
                 </div>            

@@ -64,12 +64,12 @@ class Select_mod extends CI_Model {
 
 	function get_rate_4_star($product_id=NULL) {
 		$result = $this->db->query("SELECT COUNT(tb_product_rate.rate) as rate FROM tb_product_rate WHERE product_id='$product_id' AND rate='4' ");
-       	return $var = ($result->num_rows() > 0)? $result->row_array() : 0 ; 		
+       	return $var = ($result->num_rows() > 0)? $result->row_array() : 0 ;	
 	}
 
 	function get_rate_3_star($product_id=NULL) {
 		$result = $this->db->query("SELECT COUNT(tb_product_rate.rate) as rate FROM tb_product_rate WHERE product_id='$product_id' AND rate='3' ");
-       	return $var = ($result->num_rows() > 0)? $result->row_array() : 0 ; 		
+       	return $var = ($result->num_rows() > 0)? $result->row_array() : 0 ;	
 	}
 
 	function get_rate_2_star($product_id=NULL) {
@@ -79,7 +79,17 @@ class Select_mod extends CI_Model {
 
 	function get_rate_1_star($product_id=NULL) {
 		$result = $this->db->query("SELECT COUNT(tb_product_rate.rate) as rate FROM tb_product_rate WHERE product_id='$product_id' AND rate='1' ");
-       	return $var = ($result->num_rows() > 0)? $result->row_array() : 0 ;	
+       	return $var = ($result->num_rows() > 0)? $result->row_array() : 0 ;
+	}
+
+	function get_product_like($product_id=NULL) {
+		$result = $this->db->query("SELECT COUNT(tb_product_rate.rate) as rate FROM tb_product_rate WHERE product_id='$product_id' AND rate > '3' ");
+		return $var = ($result->num_rows() > 0)? $result->row_array() : 0 ;
+	}
+
+	function get_product_sold($product_id=NULL) {
+		$result = $this->db->query("SELECT COUNT(tb_order.product_id) as sold FROM tb_order WHERE product_id='$product_id' ");
+		return $var = ($result->num_rows() > 0)? $result->row_array() : 0 ;
 	}
 
 	function get_product_discussion($product_id=NULL) {
@@ -145,6 +155,67 @@ class Select_mod extends CI_Model {
 
 		$result = $this->db->get();
 		return $var = ($result->num_rows() > 0)? $result->result_array() : FALSE ;	
+	}
+
+	function get_shop($shop_id=NULL) {
+		$this->db->select('tb_shop.shop_id, tb_shop.shop_name, tb_shop.shop_img ');
+		$this->db->from('tb_shop');		
+
+		if($shop_id != NULL) $this->db->where('tb_shop.shop_id', $shop_id);
+		
+		$result = $this->db->get();
+        if($shop_id != NULL){
+            return $var = ($result->num_rows() > 0)? $result->row_array() : FALSE ;    
+        }else{
+            return $var = ($result->num_rows() > 0)? $result->result_array() : FALSE ;
+        }	
+	}
+
+	function get_shop_detail($shop_id=NULL) {
+		$this->db->select('tb_shop.*, tb_city.city_name, tb_province.province_name, tb_user.email');
+		$this->db->from('tb_shop, tb_city, tb_province, tb_user');
+		$this->db->where('tb_shop.city_id', 'tb_city.city_id', FALSE);
+		$this->db->where('tb_shop.province_id', 'tb_province.province_id', FALSE);
+		$this->db->where('tb_shop.shop_id', 'tb_user.shop_id', FALSE);
+
+		if($shop_id != NULL) $this->db->where('tb_shop.shop_id', $shop_id);
+		
+		$result = $this->db->get();        
+        return $var = ($result->num_rows() > 0)? $result->row_array() : FALSE ;		
+	}
+
+	function get_product_album($shop_id=NULL) {
+		$this->db->select('tb_product_album.*, tb_product_album_detail.*, tb_product.product_name, tb_product.product_img');
+		$this->db->from('tb_product_album, tb_product_album_detail, tb_product');
+		$this->db->where('tb_product_album.album_id', 'tb_product_album_detail.album_id', FALSE);
+		$this->db->where('tb_product_album_detail.product_id', 'tb_product.product_id', FALSE);
+
+		if($shop_id != NULL) $this->db->where('tb_product_album.shop_id', $shop_id);
+		
+		$this->db->order_by('tb_product_album_detail.album_id', 'ASC');
+		$result = $this->db->get();
+		return $var = ($result->num_rows() > 0)? $result->result_array() : FALSE ;		
+	}
+
+	function get_shop_rate($shop_id=NULL) {
+		$result = $this->db->query("SELECT AVG(rate) as rate FROM tb_shop_rate WHERE shop_id='$shop_id' ");
+		return $var = ($result->num_rows() > 0)? $result->row_array() : 0 ;
+	}
+
+	function get_product_per_album($album_id=NULL) {
+		$this->db->select('tb_product.*');
+		$this->db->from('tb_product, tb_product_album_detail');
+		$this->db->where('tb_product_album_detail.product_id', 'tb_product.product_id', FALSE);
+
+		if($album_id != NULL) $this->db->where('tb_product_album_detail.album_id', $album_id);			
+		
+       	$result = $this->db->get();
+        return $var = ($result->num_rows() > 0)? $result->result_array() : FALSE ;          	
+	}
+
+	function get_total_product_per_album($album_id=NULL) {
+		$result = $this->db->query("SELECT COUNT(tb_product_album_detail.product_id) as product, album_name FROM tb_product_album_detail, tb_product_album WHERE tb_product_album_detail.album_id='$album_id' AND tb_product_album.album_id = tb_product_album_detail.album_id ");
+       	return $var = ($result->num_rows() > 0)? $result->row_array() : 0 ;
 	}
 
 

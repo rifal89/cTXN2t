@@ -1,19 +1,19 @@
 <div id="store">
     <div id="head-store"></div>
     <div id="img-store">
-        <img class="ui medium circular image logo-store" src="<?php echo assets_url;?>img/icon/food.png" />
+        <img class="ui medium circular image logo-store" src="<?php echo public_url.'shop_img/'.$shop['shop_img'];?>" />
     </div>
     <div id="desc-store">
         <div class="ui grid nomargin">
             <div class="sixteen column nopadding">
-                <div class="ui star rating rating-disabled" data-rating="4" data-max-rating="5"></div>
-                <h3 class="aligncenter store-name">Nama Toko</h3>
+                <div class="ui star rating rating-disabled" data-rating="<?php echo round($rate['rate']);?>" data-max-rating="5"></div>
+                <h3 class="aligncenter store-name"><?php echo ucwords(str_replace("_", " ", $shop['shop_name']));?></h3>
             </div>
         </div>
         <div class="ui grid two column nomargin">
             <div class="column">
                 <p><strong class="uppercase title"><i class="mdi-action-store"></i>&nbsp;Tentang Kami</strong></p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p><?php echo $shop['shop_description'];?></p>
             </div>
             <div class="column">
                 <table>
@@ -22,7 +22,7 @@
                             <p><strong class="uppercase title"><i class="mdi-maps-place"></i>&nbsp;Alamat Kami</strong></p>
                         </td>
                         <td>
-                            <p>Jl. Ahmad Yani No 79</p>
+                            <p><?php echo $shop['shop_address'];?></p>
                         </td>
                     </tr>
                     <tr>
@@ -30,7 +30,7 @@
                             <p><strong class="uppercase title"><i class="mdi-social-public"></i>&nbsp;Propinsi</strong></p>
                         </td>
                         <td>
-                            <p>DKI Jakarta</p>
+                            <p><?php echo ucwords($shop['province_name']);?></p>
                         </td>
                     </tr>
                     <tr>
@@ -38,7 +38,7 @@
                             <p><strong class="uppercase title"><i class="mdi-social-location-city"></i>&nbsp;Kota</strong></p>
                         </td>
                         <td>
-                            <p>Jakarta</p>
+                            <p><?php echo ucwords($shop['city_name']);?></p>
                         </td>
                     </tr>
                     <tr>
@@ -46,7 +46,7 @@
                             <p><strong class="uppercase title"><i class="mdi-maps-local-phone"></i>&nbsp;Phone</strong></p>
                         </td>
                         <td>
-                            <p><a href="tel:622198765432">+6221-98765432</a></p>
+                            <p><a href="tel:622198765432"><?php echo $shop['shop_contact'];?></a></p>
                         </td>
                     </tr>
                     <tr>
@@ -54,47 +54,62 @@
                             <p><strong class="uppercase title"><i class="mdi-communication-email"></i>&nbsp;Email</strong></p>
                         </td>
                         <td>
-                            <p><a href="mailto:toko@mail.com">toko@mail.com</a></p>
+                            <p><a href="mailto:toko@mail.com"><?php echo $shop['email'];?></a></p>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
+
     <div id="body-store">
         <div id="list-item">
             <?php
-                $i = 1;
-                while($i <= 12){
+            $album_id = "";
+            if($album != FALSE) :
+            foreach($album as $row) :
+            if($album_id != $row['album_id']) :
             ?>
             <div class="card items-ui">
                 <div class="head-card">
-                    Nama Kategori
+                    <?php echo ucwords($row['album_name']);?>
                 </div>
                 <div class="card-image">
-                    <a href="store/product">
-                        <img src="<?php echo assets_url;?>img/product/Maichi2.jpg" class="activator" />
+                    <a href="<?php echo base_url().'home/shop_album/'.$row['shop_id'].'/'.$row['album_id'];?>">
+                        <img src="<?php echo public_url.'product_img/'.$row['product_img'];?>" class="activator" />
                     </a>
                 </div>
                 <div class="card-content">
                     <div class="table imgcategory-small">
-                        <a href="store/product" class="table-cell imgcategory" style="background-image: url('<?php echo assets_url;?>img/product/Dress.jpg');"></a>
-                        <a href="store/product" class="table-cell imgcategory" style="background-image: url('<?php echo assets_url;?>img/product/batik-keris.jpg');"></a>
-                        <a href="store/product" class="table-cell imgcategory" style="background-image: url('<?php echo assets_url;?>img/product/bolgul3in1.jpg');"></a>
+                        <?php                  
+                        $x=1; // utk membatasi jumlah image tampil = 4
+                        $album_id = $row['album_id'];                      
+                        foreach($album as $row) :
+                        if($album_id == $row['album_id'] && $x<=4) :
+                        ?>
+                        <a href="<?php echo base_url().'home/shop_album/'.$row['shop_id'].'/'.$row['album_id'];?>" class="table-cell imgcategory" style="background-image: url('<?php echo public_url.'product_img/'.$row['product_img'];?>');"></a>
+                        <?php                        
+                        $x++;
+                        endif;
+                        endforeach;                        
+                        ?>
                     </div>
                 </div>
             </div>
-            <?php
-                $i++; };
+            <?php              
+            endif;
+            endforeach; 
+            endif; 
             ?>
         </div>
+
         <div id="page_nav">
             <a href="store/category-pages/2/index.php"></a>
         </div>
     </div>
 </div>
 
-<div id="tempBtnAddCategory" style="display:none;">
+<!--<div id="tempBtnAddCategory" style="display:none;">
     <div id="addCategory" class="card items-ui btnAddItem">
         <div class="boxAddItem">
             <a href="store/addcategory/index.php#formAdd" class="table nomargin">
@@ -105,13 +120,13 @@
             </a>
         </div>
     </div>
-</div>
+</div>-->
 
 <script src="<?php echo assets_url;?>js/jquery.backstretch.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('#head-store').backstretch([
-            "<?php echo assets_url;?>img/landscape/Borobudur-Nothwest-view.jpg",
+            "<?php echo public_url.'shop_bg/'.$shop['shop_bg'];?>",
             ], {
                 fade: 750,
                 duration: 8000
