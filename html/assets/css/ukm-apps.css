@@ -403,6 +403,13 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	-webkit-border-radius: 0;
 }
 
+#ji .card {
+	border: 1px solid #ddd;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
 #ji .card a {
 	font-size: 13px;
 	color: #2691ff;
@@ -1078,27 +1085,32 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	box-shadow: none;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
-	border: 5px dashed #ccc;
+	border: 2px dashed #ccc;
 	cursor: pointer;
 }
 #ji #store .btnAddItem .boxAddItem {
-	margin: 5px;
+	margin: 0;
+	height: 100%;
+}
+#ji #store .btnAddItem .boxAddItem a {
+	height: 100%;
 }
 #ji #store .btnAddItem .boxAddItem .contentAddItem {
 	background: #ccc;
 	padding: 15px;
 	color: #909090;
 	text-align: center;
-	font-size: 28px;
+	font-size: 16px;
 	font-weight: bold;
-	height: 409px;
+	height: 440px;
 	vertical-align: middle;
 	display: table-cell;
 }
 #ji #store .btnAddItem .boxAddItem .contentAddItem i {
 	display: block;
-	font-size: 120px;
+	font-size: 65px;
 	width: 100%;
+	margin-bottom: 10px;
 }
 
 #ji #store #categoryName button i {

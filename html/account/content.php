@@ -226,6 +226,11 @@ function saveDataStore(){
     });
 }
 
+function heightAddCategory(){
+    var categoryItem = $('.category-item').outerHeight() - 5;
+    $('#addCategory').height(categoryItem);
+}
+
 function accountPages(){
     $.ajax({
         url: base + "account/profile",

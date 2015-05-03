@@ -44,10 +44,12 @@
         <div id="list-item">
             <div id="addProduct" class="card items-ui btnAddItem">
                 <div class="boxAddItem">
-                    <div class="contentAddItem">
-                        <i class="add circle icon"></i>
-                        Tambah Produk Baru
-                    </div>
+                    <a class="table nomargin">
+                        <div class="contentAddItem">
+                            <i class="add circle icon"></i>
+                            Tambah Produk Baru
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="card items-ui">

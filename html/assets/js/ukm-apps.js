@@ -8,13 +8,13 @@ var widthMainContent = $("#maincontent").width();
 
 if(widthScreen >= 1024){
     var itemPerPage = 4;
-    var widthItem = (widthMainContent / itemPerPage) - 20;
+    var widthItem = (widthMainContent / itemPerPage) - 22;
 } else if(widthScreen >= 769 && widthScreen <= 1023){
     var itemPerPage = 3;
-    var widthItem = (widthMainContent / itemPerPage) - 20;
+    var widthItem = (widthMainContent / itemPerPage) - 22;
 } else if(widthScreen >= 481 && widthScreen <= 768){
     var itemPerPage = 2;
-    var widthItem = (widthMainContent / itemPerPage) - 20;
+    var widthItem = (widthMainContent / itemPerPage) - 22;
 } else if(widthScreen >= 480){
     var itemPerPage = 1;
     var widthItem = (widthMainContent / itemPerPage) - 5;
@@ -35,9 +35,9 @@ function isoLayout(){
 
 	$('#list-item .items-ui').width(widthItem - 1);
 
-    $('#account-pages #store #list-item .items-ui').width(widthItem - 4);
+    $('#account-pages #store #list-item .items-ui').width(widthItem - 6);
 
-    $('#account-pages #store #list-item .btnAddItem').width(widthItem - 14);
+    $('#account-pages #store #list-item .btnAddItem').width(widthItem - 6);
 
 	var $container = $('#list-item');
 
@@ -60,8 +60,8 @@ function isoLayout(){
         // call Isotope as a callback
         function(newElements) {
             $('#list-item .items-ui').width(widthItem - 1);
-            $('#account-pages #store #list-item .items-ui').width(widthItem - 4);
-            $('#account-pages #store #list-item .btnAddItem').width(widthItem - 14);
+            $('#account-pages #store #list-item .items-ui').width(widthItem - 6);
+            $('#account-pages #store #list-item .btnAddItem').width(widthItem - 6);
             $container.isotope('appended', $(newElements)); 
         }
 	);

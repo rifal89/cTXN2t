@@ -199,7 +199,7 @@
                 $i = 1;
                 while($i <= 12){
             ?>
-            <div class="card items-ui">
+            <div class="card items-ui category-item">
                 <div class="head-card">
                     Nama Kategori
                 </div>
