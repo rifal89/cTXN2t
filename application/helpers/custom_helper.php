@@ -62,9 +62,9 @@ if(!function_exists("indonesia_currency")) {
 	}
 }
 
-/***************************************************  untuk mail  ************************/
-if(!function_exists("get_total_new_message")) {
-    function get_total_new_message() {
+/***************************************************  untuk .. . .  ************************/
+if(!function_exists("get_product_category")) {
+    function get_product_category() {
         // Get a reference to the controller object
         $CI = get_instance();
 
@@ -72,7 +72,7 @@ if(!function_exists("get_total_new_message")) {
         $CI->load->model('select_mod');
 
         // Call a function of the model
-        return $CI->select_mod->get_total_new_inbox();     
+        return $CI->select_mod->get_category();     
     }
 }
 
@@ -81,80 +81,5 @@ if(!function_exists("get_new_message")) {
         $CI = get_instance();
         $CI->load->model('select_mod');        
         return $CI->select_mod->get_new_inbox();     
-    }
-}
-
-/***************************************************  untuk order  ************************/
-if(!function_exists("get_total_new_order")) {
-    function get_total_new_order() {
-        $CI = get_instance();
-        $CI->load->model('select_mod');
-        return $CI->select_mod->get_count_new_order();     
-    }
-}
-
-if(!function_exists("get_total_new_confirmation")) {
-    function get_total_new_confirmation() {
-        $CI = get_instance();
-        $CI->load->model('select_mod');
-        return $CI->select_mod->get_count_new_confirmation();     
-    }
-}
-
-if(!function_exists("get_new_confirmation")) {
-    function get_new_confirmation() {
-        $CI = get_instance();
-        $CI->load->model('select_mod');
-        return $CI->select_mod->get_order(NULL, 'confirmation');
-    }
-}
-
-if(!function_exists("get_company_bank_account")) {
-    function get_company_bank_account() {
-        $CI = get_instance();
-        $CI->load->model('select_mod');
-        return $CI->select_mod->get_company_bank_account();     
-    }
-}
-
-if(!function_exists("get_user_bank_account")) {
-    function get_user_bank_account($user_id) {
-        $CI = get_instance();
-        $CI->load->model('select_mod');
-        return $CI->select_mod->get_user_bank_account(NULL, $user_id);
-    }
-}
-
-/***************************************************  untuk refund  ************************/
-if(!function_exists("get_count_refund_request")) {
-    function get_count_refund_request() {    
-        $CI = get_instance();    
-        $CI->load->model('select_mod');        
-        return $CI->select_mod->get_count_refund_request();     
-    }
-}
-
-if(!function_exists("get_refund_request")) {
-    function get_refund_request() {    
-        $CI = get_instance();    
-        $CI->load->model('select_mod');        
-        return $CI->select_mod->get_refund(NULL, 'new');     
-    }
-}
-
-/***************************************************  untuk hutang  ************************/
-if(!function_exists("get_total_new_debt")) {
-    function get_total_new_debt() {
-        $CI = get_instance();
-        $CI->load->model('select_mod');
-        return $CI->select_mod->get_debt_count();     
-    }
-}
-
-if(!function_exists("get_debt")) {
-    function get_debt($debt_id) {
-        $CI = get_instance();
-        $CI->load->model('select_mod');
-        return $CI->select_mod->get_debt($debt_id);
     }
 }

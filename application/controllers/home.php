@@ -88,6 +88,16 @@ class Home extends CI_Controller {
 		$this->load->view('template/main', $data);		
 	}
 
+	function search() {
+		$product_name		= $this->input->post('product_name');
+		$category_name		= $this->input->post('category_name');
+
+		$data['product']	= $this->select_mod->get_product_for_search($product_name, $category_name);
+		$data['content'] 	= $this->load->view('content/product_search', $data, TRUE);
+		$this->load->view('template/main', $data);		
+	}
+
+	/******************************************* untuk user yg sudah login *******************/
 	function checkout() {
 		$data['content'] = $this->load->view('content/checkout', '', TRUE);
 		$this->load->view('template/main', $data);

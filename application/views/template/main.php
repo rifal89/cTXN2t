@@ -116,28 +116,22 @@
             <div class="full height">
                 <div id="searchbar" class="following bar light fixed" style="display:none;">
                     <div class="ui segment">
-                        <form id="searchForm" method="post" action="#">
+                        <?php
+                        $attributes = array('id' => 'searchForm');
+                        echo form_open('home/search', $attributes); ?>
                             <div class="ui grid">
                                 <div class="input-field nine wide column">
-                                    <input type="text" placeholder="Ketik disini untuk cari produk" />
+                                    <input type="text" name="product_name" placeholder="Ketik disini untuk cari produk" />
                                 </div>
                                 <div class="input-field four wide column">
-                                    <select name="search">
+                                    <select name="category_name">
                                         <option value="" disabled selected>Pilih Kategori</option>
-                                        <option value="1">Fashion Pria</option>
-                                        <option value="2">Fashion Wanita</option>
-                                        <option value="3">Kamera</option>
-                                        <option value="4">Handphone</option>
-                                        <option value="5">Radio</option>
-                                        <option value="6">Televisi</option>
-                                        <option value="7">Alat Tulis</option>
-                                        <option value="8">Buku</option>
-                                        <option value="9">Perkakas Rumah</option>
-                                        <option value="10">Makanan</option>
-                                        <option value="11">Minuman</option>
-                                        <option value="12">Kerajinan Tangan</option>
-                                        <option value="13">ALat Olahraga</option>
-                                        <option value="14">Tanaman</option>
+                                        <?php
+                                        $category = get_product_category();
+                                        if($category != FALSE) :
+                                        foreach ($category as $row) : ?>
+                                            <option value="<?php echo $row['category_name'];?>"> <?php echo $row['category_name'];?> </option>
+                                        <?php endforeach; endif;?>
                                     </select>
                                 </div>
                                 <div class="input-field three wide column">
@@ -146,7 +140,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        <?php echo form_close(); ?>
                     </div>
                 </div>
                 <?php if(isset($content)) echo $content; ?>                

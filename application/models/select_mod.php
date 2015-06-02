@@ -131,6 +131,28 @@ class Select_mod extends CI_Model {
        	return $var = ($result->num_rows() > 0)? $result->result_array() : FALSE ;		
 	}
 
+	function get_product_for_search($product_name=NULL, $category_name=NULL) {
+		$this->db->select('tb_product.*, tb_shop.shop_name');
+		$this->db->from('tb_product');
+
+		if($product_name != NULL && $category_name != NULL) {
+			$this->db->like('product_name', $product_name);
+			$this->db->or_like('category_name', $category_name);			
+		} 
+		if($product_name != NULL && $category_name == NULL)  {
+			$this->db->like('product_name', $product_name);
+		}
+		if($product_name == NULL && $category_name != NULL)  {
+			$this->db->like('category_name', $category_name);
+		}
+
+		$this->db->join('tb_shop', 'tb_product.shop_id = tb_shop.shop_id', 'inner');
+		$this->db->join('tb_product_category', 'tb_product.category_id = tb_product_category.category_id', 'inner');
+		
+       	$result = $this->db->get();
+        return $var = ($result->num_rows() > 0)? $result->result_array() : FALSE ;             	
+	}
+
 	function get_shop_courier($product_id=NULL) {
 		$this->db->select('tb_shop_courier.*, tb_courier.*');
 		$this->db->from('tb_shop_courier, tb_courier');

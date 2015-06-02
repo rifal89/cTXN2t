@@ -211,10 +211,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	float: left;
 }
 
-#ji .price-item .label-pc {
-	display: none;
-}
-
 #ji .black-pattern {
 	background: rgba(0,0,0,0.85);
 	position: absolute;
@@ -403,13 +399,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	-webkit-border-radius: 0;
 }
 
-#ji .card {
-	border: 1px solid #ddd;
-	box-shadow: none;
-	-moz-box-shadow: none;
-	-webkit-box-shadow: none;
-}
-
 #ji .card a {
 	font-size: 13px;
 	color: #2691ff;
@@ -472,14 +461,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 #ji .card .card-action .btn i {
 	font-size: 25px;
-	vertical-align: -5px;
-}
-#ji .card .card-reveal {
-	width: 100%;
-}
-
-#ji .detail-product .ui.grid > .column:not(.row), 
-#ji .detail-product .ui.grid > .row > .column {
 	vertical-align: top;
 }
 
@@ -557,8 +538,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	float: none;
 	margin: 0;
 }
-#ji .btnEmail,
-#ji .btnLogout {
+#ji #rightbar #btnEmail,
+#ji #rightbar #btnLogout {
 	display: none;
 }
 
@@ -1068,8 +1049,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 #ji #store #body-store .head-card {
 	padding: 10px 15px;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;
+	text-align: center;
+	letter-spacing: 1px;
 }
 #ji #store #body-store .card-content {
 	padding: 8px 11px;
@@ -1088,32 +1071,27 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	box-shadow: none;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
-	border: 2px dashed #ccc;
+	border: 5px dashed #ccc;
 	cursor: pointer;
 }
 #ji #store .btnAddItem .boxAddItem {
-	margin: 0;
-	height: 100%;
-}
-#ji #store .btnAddItem .boxAddItem a {
-	height: 100%;
+	margin: 5px;
 }
 #ji #store .btnAddItem .boxAddItem .contentAddItem {
 	background: #ccc;
 	padding: 15px;
 	color: #909090;
 	text-align: center;
-	font-size: 16px;
+	font-size: 28px;
 	font-weight: bold;
-	height: 440px;
+	height: 423px;
 	vertical-align: middle;
 	display: table-cell;
 }
 #ji #store .btnAddItem .boxAddItem .contentAddItem i {
 	display: block;
-	font-size: 65px;
+	font-size: 120px;
 	width: 100%;
-	margin-bottom: 10px;
 }
 
 #ji #store #categoryName button i {
@@ -1604,7 +1582,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	background: #2196F3;
 	display: inline-block;
 	vertical-align: middle;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	z-index: 2;
 
@@ -1788,17 +1766,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		width: 34%;
 	}
 
-	#ji .responsive-table tbody {
-		display: block;
-		width: auto;
-	}
-	#ji .responsive-table tr {
-		display: block;
-	}
-	#ji .responsive-table td {
-		display: block;
-	}
-
 }
 
 @media only screen and (max-width: 768px){
@@ -1807,9 +1774,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		width: 90% !important;
 	}
 
-	#ji #rightbar {
-		min-width: 50px;
-	}
 	#ji #rightbar .item {
 		padding: 20px 5px;
 		font-size: 18px;
@@ -2106,10 +2070,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		position: absolute;
 		top: 15px;
 		right: 0;
-	}
-
-	#ji #list-product-cart .description .column {
-		padding: 5px 9px;
 	}
 
 }

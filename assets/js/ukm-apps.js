@@ -8,13 +8,13 @@ var widthMainContent = $("#maincontent").width();
 
 if(widthScreen >= 1024){
     var itemPerPage = 4;
-    var widthItem = (widthMainContent / itemPerPage) - 22;
+    var widthItem = (widthMainContent / itemPerPage) - 20;
 } else if(widthScreen >= 769 && widthScreen <= 1023){
     var itemPerPage = 3;
-    var widthItem = (widthMainContent / itemPerPage) - 22;
+    var widthItem = (widthMainContent / itemPerPage) - 20;
 } else if(widthScreen >= 481 && widthScreen <= 768){
     var itemPerPage = 2;
-    var widthItem = (widthMainContent / itemPerPage) - 22;
+    var widthItem = (widthMainContent / itemPerPage) - 20;
 } else if(widthScreen >= 480){
     var itemPerPage = 1;
     var widthItem = (widthMainContent / itemPerPage) - 5;
@@ -35,9 +35,9 @@ function isoLayout(){
 
 	$('#list-item .items-ui').width(widthItem - 1);
 
-    $('#account-pages #store #list-item .items-ui').width(widthItem - 6);
+    $('#account-pages #store #list-item .items-ui').width(widthItem - 4);
 
-    $('#account-pages #store #list-item .btnAddItem').width(widthItem - 6);
+    $('#account-pages #store #list-item .btnAddItem').width(widthItem - 14);
 
 	var $container = $('#list-item');
 
@@ -60,8 +60,8 @@ function isoLayout(){
         // call Isotope as a callback
         function(newElements) {
             $('#list-item .items-ui').width(widthItem - 1);
-            $('#account-pages #store #list-item .items-ui').width(widthItem - 6);
-            $('#account-pages #store #list-item .btnAddItem').width(widthItem - 6);
+            $('#account-pages #store #list-item .items-ui').width(widthItem - 4);
+            $('#account-pages #store #list-item .btnAddItem').width(widthItem - 14);
             $container.isotope('appended', $(newElements)); 
         }
 	);
@@ -89,7 +89,7 @@ function openSearch(){
     $("#openSearch, #openSearchM").click(function(){
         var wrapperHeight = $('#wrapper').height();
         if(heightScreen < wrapperHeight){
-            $("#searchbar").width(widthMainContent - 4);
+            $("#searchbar").width(widthMainContent - 16);
         } else {
             $("#searchbar").width(widthMainContent);
         }
@@ -124,17 +124,17 @@ function loadJqueryAddOn(){
 
 function showElementAfterLogin(){
     if($.cookie('hasLogin') == "true"){
-        $('.btnUser').attr('href', 'account');
-        $('.btnEmail, .btnLogout').css({'display':'block'});
+        //$('#btnUser').attr('href', 'account');
+        $('#btnEmail, #btnLogout').css({'display':'block'});
     } else {
-        $('.btnUser, .btnUserM').attr('href', 'login');
-        $('.btnLogout').attr('href', 'logout');
-        $('.btnEmail, .btnLogout').hide();
+        //$('#btnUser, #btnUserM').attr('href', 'login');
+        //$('#btnLogout').attr('href', 'logout');
+        $('#btnEmail, #btnLogout').hide();
     }
 }
 
 function logout(){
-    $('.btnLogout').click(function(){
+    $('#btnLogout').click(function(){
         $.removeCookie('hasLogin', { path: '/' });
     });
 }
